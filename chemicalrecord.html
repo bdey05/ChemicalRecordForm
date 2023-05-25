@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chemical Record JSON Generator</title>
+    <script src="chemicalrecord.js"></script>
+    <link href="chemicalrecord.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="header">
+        <h1>Chemical Record JSON Generator</h1>
+      </div>
+     
+      <div class="two">
+        <button class="name" onclick="createNameField()">Name</button>
+      </div>
+     
+      <div class="third">
+        <form action="" id="mainform" method="get" name="mainform">
+          <div id="names">
+            <div class="nameDiv">
+                <input type="text" placeholder="Name 1" />
+                <button type="button">Add</button>
+            </div>
+          </div>
+          <input type="submit" value="Generate" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

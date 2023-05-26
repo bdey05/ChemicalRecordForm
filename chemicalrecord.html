@@ -11,19 +11,17 @@
         <h1>Chemical Record JSON Generator</h1>
       </div>
      
-      <div class="two">
-        <button class="name" onclick="createNameField()">Name</button>
-      </div>
-     
-      <div class="third">
-        <form action="" id="mainform" method="get" name="mainform">
+      <div class="namescontainer">
+        <h2>Add Chemical Names: </h2>
+        <form action="" id="mainform" method="get" name="mainform" onsubmit="return false">
           <div id="names">
             <div class="nameDiv">
                 <input type="text" placeholder="Name 1" />
-                <button type="button">Add</button>
+                <button type="button" onclick="createNameField()">Add</button>
+                <button type="button" onclick="deleteNameField()" id="initialname" disabled>Delete</button>
             </div>
           </div>
-          <input type="submit" value="Generate" />
+          <input type="submit" value="Generate"/>
         </form>
       </div>
     </div>

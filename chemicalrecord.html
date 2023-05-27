@@ -4,6 +4,7 @@
     <title>Chemical Record JSON Generator</title>
     <script src="chemicalrecord.js"></script>
     <link href="chemicalrecord.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   <body>
     <div class="main">
@@ -13,17 +14,33 @@
      
       <div class="namescontainer">
         <h2>Add Chemical Names: </h2>
-        <form action="" id="mainform" method="get" name="mainform" onsubmit="return false">
+        <form action="" id="mainform" method="get" name="mainform" onsubmit="generateChemicalJSON(); return false">
           <div id="names">
             <div class="nameDiv">
-                <input type="text" placeholder="Name 1" />
-                <button type="button" onclick="createNameField()">Add</button>
-                <button type="button" onclick="deleteNameField()" id="initialname" disabled>Delete</button>
+                <input type="text" placeholder="Chemical Name" required/>
+                <button type="button" id="initialname" disabled>Delete</button>
             </div>
           </div>
-          <input type="submit" value="Generate"/>
+          <button type="button" onclick="createNameField()" id="add"><i class="fa-solid fa-plus"></i></button>
+          <div id="CAS">
+            <p>CAS:</p>
+            <input type="text" id="CASinput" required/>
+          </div>
+          <input type="submit" id="generate" value="Generate"/>
         </form>
+        <div id="chemicalRecordOutput">
+          <h3></h3>
+          
+            <pre id="JSONChemicalRecord">
+            
+            </pre>
+            <p id="error">
+  
+            </p>
+            <button type="button" id="copy" onclick="copyJSON()">Copy JSON <i class="fa-solid fa-copy"></i></button>
+        </div>
       </div>
+      <div id="snackbar">JSON Copied</div>
     </div>
   </body>
 </html>

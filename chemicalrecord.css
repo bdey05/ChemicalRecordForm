@@ -88,14 +88,15 @@ input {
     margin: 20px;
 }
 
-#CAS {
+#CAS, #wikidata {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
+    margin: 8px;
 }
 
-#CASinput {
+#CASinput, #wikidatainput{
     border-radius: 5px;
 }
 

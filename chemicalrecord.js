@@ -67,9 +67,16 @@ let generateChemicalJSON = () => {
     return displayError("Invalid CAS Number");
   }
 
+  const wikidata = document.getElementById("wikidatainput").value;
+  if (!wikidataValidator(wikidata))
+  {
+    return displayError("Invalid Wikidata URL");
+  }
+
   let chemicalJSON = {
     "names": chemicalNames,
-    "CAS": CAS
+    "CAS": CAS,
+    "wikidata": wikidata
   };
   document.getElementById("chemicalRecordOutput").style.display = "flex";
   document.getElementById("copy").style.display = "block";
@@ -90,6 +97,15 @@ let CASValidator = (CAS) => {
   }
   
   return sum % 10 === parseInt(CAS.slice(-1));
+}
+
+let wikidataValidator = (wikidata) => {
+  try {
+    new URL(wikidata.trim())
+  } catch (e) {
+    return false;
+  }
+  return wikidata.trim().startsWith("https://www.wikidata.org/wiki/Q");
 }
 
 let displayError = (error) => {

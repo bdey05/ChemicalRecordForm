@@ -5,7 +5,27 @@
     margin: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+    scroll-behavior: smooth;
 }
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 
 .main {
     display: flex;
@@ -37,8 +57,12 @@
 }
 
 
-button, input {
+/*button, input {
     all: unset;
+}*/
+
+input, p, label {
+    font-size: 16px;
 }
 
 button {
@@ -74,7 +98,7 @@ input {
 #add {
     margin: 10px;
     border-radius: 5px;
-    width: 100%;
+    width: 250px;
     text-align: center;
 }
 
@@ -88,7 +112,7 @@ input {
     margin: 20px;
 }
 
-#CAS, #wikidata {
+#CAS, #wikidata, #InChIKey, #InChI, #SMILES, #PubchemCID {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -96,7 +120,11 @@ input {
     margin: 8px;
 }
 
-#CASinput, #wikidatainput{
+#InChIKey, #InChI, #SMILES, #PubchemCID{
+    margin: 15px;
+}
+
+#CASinput, #wikidatainput, #InChIKeyinput, #InChIinput, #SMILESinput, #PubchemCIDinput{
     border-radius: 5px;
 }
 
@@ -167,3 +195,43 @@ input {
     from {bottom: 30px; opacity: 1;}
     to {bottom: 0; opacity: 0;}
   }
+
+
+ #puresubstance {
+    margin: 5px;
+ }
+
+ #checkboxcontainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+ }
+
+ #hiddenfields {
+    display: none;
+ }
+
+ #moleculeHeader {
+    margin: 0;
+    padding: 0;
+ }
+
+ #moleculecontainer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    background-color: rgb(214, 213, 211);
+    border-radius: 5px;
+    padding: 20px;
+    display: none;
+ }
+
+ #moleculeDisplay {
+    margin: 0;
+    padding: 0;
+    
+ }

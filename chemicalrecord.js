@@ -53,6 +53,7 @@ let createNameField = () => {
 };
 
 let generateChemicalJSON = () => {
+  let chemicalJSON = {};
   document.getElementById("error").innerHTML = "";
   document.getElementById("chemicalRecordOutput").children[0].innerHTML = "";
   document.getElementById("chemicalRecordOutput").children[1].innerHTML = "";
@@ -61,6 +62,8 @@ let generateChemicalJSON = () => {
   {
     chemicalNames.push(document.getElementById("names").children[i].children[0].value);
   }
+
+  
   const CAS = document.getElementById("CASinput").value;
   if (!CASValidator(CAS))
   {
@@ -73,15 +76,94 @@ let generateChemicalJSON = () => {
     return displayError("Invalid Wikidata URL");
   }
 
-  let chemicalJSON = {
-    "names": chemicalNames,
-    "CAS": CAS,
-    "wikidata": wikidata
-  };
+  if (document.getElementById("puresubstanceinput").checked)
+  {
+    const InChIKey = document.getElementById("InChIKeyinput").value;
+    if (!InChIKeyvalidator(InChIKey))
+    {
+      return displayError("Invalid InChIKey");
+    }
+    const InChI = document.getElementById("InChIinput").value;
+    if (!InChIvalidator(InChI))
+    {
+      return displayError("Invalid InChI");
+    }
+    const SMILES = document.getElementById("SMILESinput").value;
+    if (!SMILESvalidator(SMILES))
+    {
+      return displayError("Invalid SMILES");
+    }
+    const PubchemCID = document.getElementById("PubchemCIDinput").value;
+    if (!PubchemCIDvalidator(PubchemCID))
+    {
+      return displayError("Invalid PubchemCID");
+    }
+    chemicalJSON = {
+      "names": chemicalNames,
+      "pure substance": true,
+      "CAS": CAS,
+      "InChIKey": InChIKey,
+      "InChI": InChI,
+      "SMILES": SMILES,
+      "PubchemCID": PubchemCID,
+      "wikidata": wikidata
+    };
+
+    /*document.getElementById("moleculeDisplay").style.display = "block";
+    document.getElementById("moleculeHeader").style.display = "block";*/
+    document.getElementById("moleculecontainer").style.display = "flex";
+
+
+    let moleculeOptions = {};
+    let reactionOptions = {};
+  
+    let sd = new SmiDrawer(moleculeOptions, reactionOptions);
+    sd.draw(chemicalJSON["SMILES"], '#moleculeDisplay')
+  }
+  else 
+  {
+    /*document.getElementById("moleculeHeader").style.display = "none";
+    document.getElementById("moleculeDisplay").style.display = "none";*/
+    document.getElementById("moleculecontainer").style.display = "none";
+
+    chemicalJSON = {
+      "names": chemicalNames,
+      "pure substance": false,
+      "CAS": CAS,
+      "wikidata": wikidata
+    };
+  }
+
   document.getElementById("chemicalRecordOutput").style.display = "flex";
   document.getElementById("copy").style.display = "block";
-  document.getElementById("chemicalRecordOutput").children[0].innerHTML = "Generated Chemical Record: ";
-  document.getElementById("chemicalRecordOutput").children[1].innerHTML = JSON.stringify(chemicalJSON, null, 4);
+  document.getElementById("outputHeader").innerHTML = "Generated Chemical Record: ";
+  document.getElementById("JSONChemicalRecord").innerHTML = JSON.stringify(chemicalJSON, null, 4);
+  document.getElementById("chemicalRecordOutput").scrollIntoView({behavior: "smooth"});
+
+  
+}
+
+
+let InChIKeyvalidator = (InChIKey) => {
+  const InChIKeyregex = /^[A-Za-z\d-]{14}-[A-Za-z\d]{10}-[A-Za-z\d]$/;
+  return InChIKeyregex.test(InChIKey);
+}
+
+let InChIvalidator = (InChI) => {
+  const InChIregex = /^InChI\=1S?\/[^\s]+(\s|$)/;
+  return InChIregex.test(InChI);
+}
+
+let SMILESvalidator = (SMILES) => {
+  //const SMILESregex = /^([^J][0-9BCOHNSOPrIFla@+\-\[\]\(\)\\=#$]{6,})$/ig;
+  const SMILESregex = /^([A-Za-z0-9@\.\+\-\[\]\(\)\\\/%=#$]{1,})$/;
+  return SMILESregex.test(SMILES);
+  
+}
+
+let PubchemCIDvalidator = (PubchemCID) => {
+  const PubchemCIDregex = /^\d+$/;
+  return PubchemCIDregex.test(PubchemCID);
 }
 
 let CASValidator = (CAS) => {
@@ -121,5 +203,27 @@ let copyJSON = () => {
   navigator.clipboard.writeText(copiedJSON.innerHTML);
   document.getElementById("snackbar").className = "show";
   setTimeout(() => { document.getElementById("snackbar").className = document.getElementById("snackbar").className.replace("show", ""); }, 3000);
+
+}
+
+let handleCheckbox = () => {
+  if (document.getElementById("puresubstanceinput").checked)
+  {
+    document.getElementById("hiddenfields").style.display = "block";
+    let inputNum = document.getElementById("hiddenfields").children.length;
+    for (let i = 0; i < inputNum; i++)
+    {
+      document.getElementById("hiddenfields").children[i].children[1].required = true;
+    }
+  }
+  else 
+  {
+    document.getElementById("hiddenfields").style.display = "none";
+    let inputNum = document.getElementById("hiddenfields").children.length;
+    for (let i = 0; i < inputNum; i++)
+    {
+      document.getElementById("hiddenfields").children[i].children[1].required = false;
+    }
+  }
 
 }

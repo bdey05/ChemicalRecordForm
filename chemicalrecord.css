@@ -200,6 +200,7 @@ input {
  #puresubstance {
     margin: 5px;
  }
+ 
 
  #checkboxcontainer {
     display: flex;
@@ -234,4 +235,16 @@ input {
     margin: 0;
     padding: 0;
     
+ }
+
+ input [type=text]{
+  width: 2500px;
+ }
+
+ input {
+  width: 800px;
+ }
+
+ #puresubstanceinput {
+  width: 30px !important;
  }

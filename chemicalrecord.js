@@ -193,6 +193,7 @@ let wikidataValidator = (wikidata) => {
 let displayError = (error) => {
   document.getElementById("chemicalRecordOutput").style.display = "flex";
   document.getElementById("copy").style.display = "none";
+  document.getElementById("moleculecontainer").style.display = "none";
 
   
   document.getElementById("error").innerHTML = error;
